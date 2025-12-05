@@ -17,14 +17,14 @@ get_game_score <- function(file) {
     .name_repair = "minimal"
   ) |> 
     janitor::clean_names() |> 
-    rename_with(
+    dplyr::rename_with(
       .cols = c(18,37),
       ~ c("game_total", "game_total_2")
     )
   
-  out <- bind_rows(
+  out <- dplyr::bind_rows(
     scores_first |> 
-      transmute(
+      dplyr::transmute(
         jam = as.integer(jam),
         jammer1 = jammers_number,
         jammer2 = jammers_number_2,
@@ -38,15 +38,15 @@ get_game_score <- function(file) {
           .default = NA
         )
       ) |> 
-      filter(
+      dplyr::filter(
         !is.na(jam)
       ) |> 
-      mutate(
+      dplyr::mutate(
         half = "first",
         last_jam = max(jam, na.rm = TRUE)
       ),
     scores_second |> 
-      transmute(
+      dplyr::transmute(
         jam = as.integer(jam),
         jammer1 = jammers_number,
         jammer2 = jammers_number_2,
@@ -60,21 +60,21 @@ get_game_score <- function(file) {
           .default = NA
         )
       ) |> 
-      filter(
+      dplyr::filter(
         !is.na(jam)
       ) |> 
-      mutate(
+      dplyr::mutate(
         half = "second"
       )
   ) |> 
-    mutate(
+    dplyr::mutate(
       last_jam = unique(na.omit(last_jam)),
       jam = if_else(
         half == "second",
         jam + last_jam,
         jam
       ),
-      across(
+      dplyr::across(
         matches("total"),
         ~ as.integer(.x)
       )

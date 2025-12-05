@@ -1,6 +1,6 @@
 create_game_data <- function(meta, score) {
   score |> 
-    mutate(
+    dplyr::mutate(
       date = meta$date,
       time = meta$time,
       team1 = meta$team1,
@@ -14,7 +14,7 @@ create_game_data <- function(meta, score) {
         length(meta$name_players2)
       )
     ) |> 
-    select(
+    dplyr::select(
       - last_jam
     )
 }

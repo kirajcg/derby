@@ -1,62 +1,62 @@
 plot_scoreboard_worm <- function(data) {
   
   last_jam <- data |> 
-    filter(half == "first") |> 
-    pull(jam) |> 
+    dplyr::filter(half == "first") |> 
+    dplyr::pull(jam) |> 
     max()
   
   data |> 
-    select(
+    dplyr::select(
       jam,
-      matches("gametotal")
+      dplyr::matches("gametotal")
     ) |> 
     tidyr::pivot_longer(
-      cols = matches("gametotal"),
+      cols = dplyr::matches("gametotal"),
       names_to = "team",
       values_to = "value"
     ) |> 
-    mutate(
-      team = if_else(
+    dplyr::mutate(
+      team = dplyr::if_else(
         stringr::str_detect(team, "1$"),
         data$team1[1],
         data$team2[1]
       )
     ) |> 
-    ggplot(
-      aes(
+    ggplot2::ggplot(
+      ggplot2::aes(
         x = jam, y = value, 
         color = team, fill = team
       )
     ) +
-    geom_vline(
+    ggplot2::geom_vline(
       aes(xintercept = last_jam),
       size = 1.2,
       col = "black",
       lty = 1
     ) +
-    geom_line(
+    ggplot2::geom_line(
       size = 1.5
     ) +
-    geom_point(
+    ggplot2::geom_point(
       size = 2,
       shape = 21,
       col = "black"
     ) +
-    labs(
+    ggplot2::labs(
       x = "Jam number",
       y = "Total points",
       title = data$date[1]
     ) +
-    theme_minimal(24) +
-    theme(
+    ggplot2::theme_minimal(24) +
+    ggplot2::theme(
       legend.position = "top",
       legend.justification = "right",
-      plot.title = element_text(hjust = 0.5),
+      plot.title = ggplot2::element_text(hjust = 0.5),
       # legend.text = element_text(margin = margin(t = 5)),
-      legend.title = element_blank()
+      legend.title = ggplot2::element_blank()
     ) +
-    guides(
-      color = guide_legend(nrow = 2),
-      fill = guide_legend(nrow = 2)
+    ggplot2::guides(
+      color = ggplot2::guide_legend(nrow = 2),
+      fill = ggplot2::guide_legend(nrow = 2)
     )
 }

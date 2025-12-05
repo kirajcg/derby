@@ -1,0 +1,27 @@
+Package: derby
+Title: Extracting Roller Derby Statistics From WFTDA Statsbooks
+Version: 0.0.0.9000
+Authors@R: 
+    person("Kira", "Coder Gylling", , "kira.gylling@gmail.com", role = c("aut", "cre")),
+    person("Biplabendu", "Das", role = "aut")
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Imports: 
+    dplyr,
+    ggplot2,
+    htmltools,
+    janitor,
+    lubridate,
+    progressr,
+    reactable,
+    readr,
+    readxl,
+    stringr,
+    tibble,
+    tidyr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
