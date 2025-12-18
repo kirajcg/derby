@@ -16,7 +16,7 @@ get_all_game_data <- function(files) {
     })
   }
   
-  progressr::handlers(global = TRUE)  # enable default progress bar
+  progressr::handlers(global = TRUE)
   
   progressr::with_progress({
     p <- progressr::progressor(steps = length(files))
